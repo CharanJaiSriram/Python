@@ -2,6 +2,14 @@ def vernam_encrypt(plaintext: str, key: str) -> str:
     """
     >>> vernam_encrypt("HELLO","KEY")
     'RIJVS'
+    >>> vernam_encrypt("ZAGREUS", "HADES")
+    'GAJVWBS'
+    >>> vernam_encrypt("", "BLANK") # empty plaintext
+    ''
+    >>> vernam_encrypt("X", "E") # wrap-around
+    'B'
+    >>> vernam_encrypt("CRYPTOGRAPHY", "NDA") # key shorter than text
+    'PUYCWOTUACKY'
     """
     ciphertext = ""
     for i in range(len(plaintext)):
@@ -16,6 +24,15 @@ def vernam_decrypt(ciphertext: str, key: str) -> str:
     """
     >>> vernam_decrypt("RIJVS","KEY")
     'HELLO'
+    >>> vernam_decrypt("GAJVWBS", "HADES")
+    'ZAGREUS'
+    >>> vernam_decrypt("", "BLANK")
+    ''
+    >>> vernam_decrypt("B", "E")
+    'X'
+    >>> m, k = "CRYPTOGRAPHY", "NDA"
+    >>> vernam_decrypt(vernam_encrypt(m, k), k) == m
+    True
     """
     decrypted_text = ""
     for i in range(len(ciphertext)):
