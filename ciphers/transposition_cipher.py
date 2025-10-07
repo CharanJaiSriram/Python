@@ -26,6 +26,24 @@ def encrypt_message(key: int, message: str) -> str:
     """
     >>> encrypt_message(6, 'Harshil Darji')
     'Hlia rDsahrij'
+
+    # More Edge Cases
+
+    # Key is larger than message length
+    >>> encrypt_message(20, 'cjs')
+    'cjs'
+
+    # Key = 1: identity for encryption
+    >>> encrypt_message(1, 'Good Work!')
+    'Good Work!'
+
+    # Punctuation + spaces are preserved within the transposition
+    >>> encrypt_message(3, 'Testing, I think?')
+    'TtgIhkei, i?sn tn'
+
+    # Trailing space should be carried through
+    >>> encrypt_message(3, 'cjs ')
+    'c js'
     """
     cipher_text = [""] * key
     for col in range(key):
