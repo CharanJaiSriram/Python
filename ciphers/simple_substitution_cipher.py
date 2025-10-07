@@ -22,6 +22,15 @@ def main() -> None:
 
 
 def check_valid_key(key: str) -> None:
+    """
+    # Bad Key
+    >>> check_valid_key("LFWOAYUISVKMNXPBDCRJTQEGHZ")
+    >>> try:
+    ...     check_valid_key("G"*26)
+    ... except SystemExit as e:
+    ...     str(e)
+    'Error in the key or symbol set.'
+    """
     key_list = list(key)
     letters_list = list(LETTERS)
     key_list.sort()
@@ -48,6 +57,14 @@ def decrypt_message(key: str, message: str) -> str:
 
 
 def translate_message(key: str, message: str, mode: str) -> str:
+    """
+    # Non Letter Pass through and Case Preservation
+    >>> ky = "LFWOAYUISVKMNXPBDCRJTQEGHZ"
+    >>> translate_message(ky, "CjS 5678", "encrypt")
+    'WvR 5678'
+    >>> translate_message(ky, "19-SJC%%", "decrypt")
+    '19-ITR%%'
+    """
     translated = ""
     chars_a = LETTERS
     chars_b = key
@@ -69,6 +86,12 @@ def translate_message(key: str, message: str, mode: str) -> str:
 
 
 def get_random_key() -> str:
+    """
+    # Has to be a permutation of A through Z with no repeats
+    >>> rand_key = get_random_key()
+    >>> len(rand_key) == 26 and set(rand_key) == set(LETTERS) and len(set(rand_key)) == 26
+    True
+    """
     key = list(LETTERS)
     random.shuffle(key)
     return "".join(key)
